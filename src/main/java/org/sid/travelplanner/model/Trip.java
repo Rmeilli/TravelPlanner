@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -86,4 +87,15 @@ public class Trip {
     @JoinColumn(name = "creator_id", nullable = false)
     @JsonIgnoreProperties("trips")
     private User creator;
+
+    public List<TripParticipant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<TripParticipant> participants) {
+        this.participants = participants;
+    }
+
+    @OneToMany(mappedBy = "trip")
+    private List<TripParticipant> participants;
 }

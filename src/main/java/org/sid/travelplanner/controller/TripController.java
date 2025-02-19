@@ -25,11 +25,7 @@ public class TripController {
         return ResponseEntity.ok(newTrip);
     }
 
-//    @GetMapping("/user/{userId}")
-//    public ResponseEntity<List<Trip>> getUserTrips(@PathVariable Long userId) {
-//        List<Trip> trips = tripService.getUserTrips(userId);
-//        return ResponseEntity.ok(trips);
-//    }
+
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Trip>> getUserTrips(@PathVariable Long userId) {

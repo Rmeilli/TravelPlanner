@@ -39,40 +39,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
 
-//    public AuthController(UserService userService) {
-//        this.userService = userService;
-//    }
 
-
-//    @PostMapping("/signup")
-//    public ResponseEntity<?> signup(@RequestBody SignupRequest request) {
-//        User user = new User();
-//        user.setEmail(request.getEmail());
-//        user.setPassword(request.getPassword());
-//        user.setName(request.getName());
-//
-//        User createdUser = userService.createUser(user);
-//        return ResponseEntity.ok(createdUser);
-//    }
-//
-//
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        loginRequest.getEmail(),
-//                        loginRequest.getPassword()
-//                )
-//        );
-//
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        String jwt = tokenProvider.generateToken(loginRequest.getEmail());
-//
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//        User user = userService.findByEmail(userDetails.getUsername());
-//
-//        return ResponseEntity.ok(new LoginResponse(jwt, "Bearer", user.getId(), user.getEmail()));
-//    }
 @PostMapping("/signup")
 public ResponseEntity<?> registerUser(@RequestBody SignupRequest signupRequest) {
     try {

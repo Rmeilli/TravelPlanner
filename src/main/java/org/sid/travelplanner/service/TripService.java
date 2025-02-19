@@ -3,13 +3,18 @@ package org.sid.travelplanner.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.sid.travelplanner.dto.TripDTO;
+import org.sid.travelplanner.exception.ResourceNotFoundException;
 import org.sid.travelplanner.model.Trip;
+import org.sid.travelplanner.model.TripParticipant;
+import org.sid.travelplanner.model.TripRole;
 import org.sid.travelplanner.model.User;
+import org.sid.travelplanner.repository.TripParticipantRepository;
 import org.sid.travelplanner.repository.TripRepository;
 import org.sid.travelplanner.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -18,14 +23,18 @@ import java.util.logging.Logger;
 //@RequiredArgsConstructor
 @Transactional
 public class TripService {
-    public TripService(TripRepository tripRepository, UserRepository userRepository) {
+    public TripService(TripRepository tripRepository, UserRepository userRepository, TripParticipantRepository tripParticipantRepository) {
         this.tripRepository = tripRepository;
         this.userRepository = userRepository;
+        this.tripParticipantRepository = tripParticipantRepository;
     }
+
 
     private final TripRepository tripRepository;
     private final UserRepository userRepository;
     private static final Logger logger = Logger.getLogger(TripService.class.getName());
+    private final TripParticipantRepository tripParticipantRepository;
+
 
 
     // Créer un nouveau voyage
@@ -83,5 +92,24 @@ public class TripService {
     // Supprimer un voyage
     public void deleteTrip(Long tripId) {
         tripRepository.deleteById(tripId);
+    }
+    public void addParticipant(Long tripId, String userEmail) {
+        Trip trip = getTripById(tripId);
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("Utilisateur non trouvé avec l'email : " + userEmail));
+
+        // Vérifie si l'utilisateur est déjà participant
+        if (tripParticipantRepository.existsByTripAndUser(trip, user)) {
+            throw new RuntimeException("L'utilisateur est déjà participant à ce voyage");
+        }
+
+        // Crée un nouveau participant
+        TripParticipant participant = new TripParticipant();
+        participant.setTrip(trip);
+        participant.setUser(user);
+        participant.setRole(TripRole.PARTICIPANT); // Le rôle par défaut
+        participant.setJoinedAt(LocalDateTime.now());
+
+        tripParticipantRepository.save(participant);
     }
 }

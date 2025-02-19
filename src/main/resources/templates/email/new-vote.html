@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nouveau Vote</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Nouveau vote sur une activité</h1>
+<p>Bonjour <span th:text="${userName}"></span>,</p>
+<p>
+    <span th:text="${voterName}"></span> a voté sur l'activité
+    <span th:text="${activityName}"></span>.
+</p>
+<a th:href="${link}">Voir les votes</a>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Invitation à un voyage</title>
+</head>
+<body>
+<h2>Invitation à rejoindre un voyage</h2>
+<p>Bonjour <span th:text="${userName}"></span>,</p>
+<p><span th:text="${inviterName}"></span> vous invite à rejoindre le voyage :
+    <strong th:text="${tripName}"></strong></p>
+<p>Connectez-vous à l'application pour accepter ou refuser cette invitation.</p>
+<br>
+<p>Cordialement,<br>L'équipe TravelPlanner</p>
+</body>
+</html>

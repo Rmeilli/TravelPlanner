@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nouvelle Activité</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Nouvelle activité proposée !</h1>
+<p>Bonjour <span th:text="${userName}"></span>,</p>
+<p>Une nouvelle activité a été proposée pour votre voyage à <span th:text="${destination}"></span>.</p>
+<h2 th:text="${activityName}"></h2>
+<p th:text="${activityDescription}"></p>
+<p>Date : <span th:text="${activityDate}"></span></p>
+<a th:href="${link}">Voir l'activité</a>
+</body>
+</html>
